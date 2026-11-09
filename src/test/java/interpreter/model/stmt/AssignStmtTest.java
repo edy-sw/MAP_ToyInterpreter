@@ -16,14 +16,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class AssignStmtTest {
     @Test
     void undeclaredVariableAssignmentThrows() {
-        var state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        var state = PrgState.of(new NopStmt());
         var assign = new AssignStmt("x", new ValueExp(new IntValue(10)));
         assertThrows(StatementException.class, () -> assign.execute(state));
     }
 
     @Test
     void typeMismatchAssignmentThrows() {
-        var state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        var state = PrgState.of(new NopStmt());
         state.getSymTable().put("x", new IntType().defaultValue()); // declared as int
         var assign = new AssignStmt("x", new ValueExp(new BoolValue(true))); // assigning bool
         assertThrows(StatementException.class, () -> assign.execute(state));

@@ -36,12 +36,15 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     }
 
     @Override
-    public Map<K, V> getContent() {
-        return Collections.unmodifiableMap(map);
+    public void remove(K key) throws ADTException {
+        if (!map.containsKey(key)) {
+            throw new ADTException("Key '" + key + "' not found in dictionary");
+        }
+        map.remove(key);
     }
 
     @Override
-    public String toString() {
-        return map.toString();
+    public Map<K, V> toMap() {
+        return Map.copyOf(map);
     }
 }

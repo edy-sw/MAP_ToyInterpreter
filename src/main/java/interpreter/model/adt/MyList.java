@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MyList<T> implements IList<T> {
+public class    MyList<T> implements IList<T> {
     private final List<T> list = new ArrayList<>();
 
     @Override
@@ -27,12 +27,10 @@ public class MyList<T> implements IList<T> {
     }
 
     @Override
-    public List<T> getAll() {
-        return Collections.unmodifiableList(list);
-    }
-
-    @Override
     public String toString() {
         return list.toString();
     }
+
+    @Override
+    public List<T> toList() { return List.copyOf(list); }
 }

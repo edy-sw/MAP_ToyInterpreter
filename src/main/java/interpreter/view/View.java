@@ -34,21 +34,14 @@ public class View {
     }
 
     private void printMenu() {
-        System.out.println("\n========== TOY INTERPRETER ==========");
         System.out.println("1. Run Example 1: " + Examples.EX1);
         System.out.println("2. Run Example 2: " + Examples.EX2);
         System.out.println("3. Run Example 3: " + Examples.EX3);
         System.out.println("0. Exit");
-        System.out.println("=====================================");
     }
 
     private void runProgram(IStmt program) {
-        PrgState state = new PrgState(
-                new MyStack<>(),
-                new MyDictionary<>(),
-                new MyList<>(),
-                program
-        );
+        PrgState state = PrgState.of(program);
         Controller controller = new Controller(new Repository(state), true);
 
         try {

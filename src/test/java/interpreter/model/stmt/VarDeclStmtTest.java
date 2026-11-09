@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class VarDeclStmtTest {
     @Test
     void duplicateVariableDeclarationThrows() throws Exception {
-        var state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        var state = PrgState.of(new NopStmt());
         var decl = new VarDeclStmt("a", new IntType());
         decl.execute(state);
 

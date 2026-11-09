@@ -8,5 +8,6 @@ public interface IDictionary<K, V> {
     V lookup(K key) throws ADTException;
     void put(K key, V value);
     void update(K key, V value) throws ADTException;
-    Map<K, V> getContent();
+    void remove(K key) throws ADTException;  // new: missing key -> ADTException
+    Map<K, V> toMap();                        // new: a read-only copy (Map.copyOf)
 }

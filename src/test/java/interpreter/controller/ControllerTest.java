@@ -8,6 +8,7 @@ import interpreter.model.adt.MyDictionary;
 import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
+import interpreter.model.stmt.NopStmt;
 import interpreter.model.value.IntValue;
 import interpreter.repository.Repository;
 import interpreter.view.Examples;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
     private static PrgState run(IStmt program) throws MyException {
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), program);
+        PrgState state = PrgState.of(program);
         new Controller(new Repository(state), false).allStep(); // display flag false for quiet tests
         return state;
     }
@@ -45,7 +46,7 @@ class ControllerTest {
 
     @Test
     void oneStepOnEmptyStackThrows() throws ADTException {
-        PrgState emptyState = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new interpreter.model.stmt.NopStmt());
+        PrgState emptyState = PrgState.of(new NopStmt());
         emptyState.getExeStack().pop(); // remove NopStmt, making stack empty
 
         Controller controller = new Controller(new Repository(emptyState), false);

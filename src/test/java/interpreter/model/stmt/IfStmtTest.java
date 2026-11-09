@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class IfStmtTest {
     @Test
     void nonBooleanConditionThrows() {
-        var state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new NopStmt());
+        var state = PrgState.of(new NopStmt());
         var ifStmt = new IfStmt(new ValueExp(new IntValue(10)), new NopStmt(), new NopStmt());
         assertThrows(StatementException.class, () -> ifStmt.execute(state));
     }
