@@ -13,7 +13,7 @@ import java.io.IOException;
 public record OpenRFileStmt(IExp exp) implements IStmt {
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        // S8: evaluate exp -> must be a StringValue
+        // S8: evaluate exp -> must be a StringValue`
         if (!(exp.eval(state.getSymTable()) instanceof StringValue fileName)) {
             throw new StatementException("openRFile: expression " + exp + " is not a string");
         }

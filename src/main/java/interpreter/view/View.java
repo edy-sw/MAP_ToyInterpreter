@@ -8,6 +8,7 @@ import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
 import interpreter.repository.Repository;
+import interpreter.model.exp.RelOp;
 
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public class View {
 
     private void runProgram(IStmt program) {
         PrgState state = PrgState.of(program);
-        Controller controller = new Controller(new Repository(state), true);
+        Controller controller = new Controller(new Repository(state, "log.txt"), true);
 
         try {
             controller.allStep();

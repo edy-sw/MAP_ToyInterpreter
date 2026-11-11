@@ -47,4 +47,16 @@ public class MyDictionary<K, V> implements IDictionary<K, V> {
     public Map<K, V> toMap() {
         return Map.copyOf(map);
     }
+
+    @Override
+    public String toString() {
+        var sb = new StringBuilder();
+        for (var entry : map.entrySet()) {
+            sb.append(entry.getKey())
+                    .append(" --> ")
+                    .append(entry.getValue())
+                    .append("\n");
+        }
+        return sb.toString().stripTrailing();
+    }
 }
