@@ -39,9 +39,12 @@ public class Controller {
     public void allStep() throws MyException {
         PrgState prg = repo.getCrtPrg();
         repo.logPrgStateExec();
-        display(prg);
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
+            repo.logPrgStateExec();
+            prg.getHeap().setContent(GarbageCollector.safeGarbageCollector(
+                    GarbageCollector.getAddrFromSymTable(prg.getSymTable().toMap().values()),
+                    prg.getHeap().getContent()));
             repo.logPrgStateExec();
             display(prg);
         }
