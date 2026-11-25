@@ -5,26 +5,32 @@ import interpreter.model.adt.IDictionary;
 import interpreter.model.adt.IList;
 import interpreter.model.stmt.IStmt;
 import interpreter.model.value.IValue;
+import interpreter.model.adt.IHeap;
 import interpreter.model.value.StringValue;
 
 import java.io.BufferedReader;
+import java.util.TreeMap;
 
 public class PrgState {
-    private IStack<IStmt> exeStack;
-    private IDictionary<String, IValue> symTable;
-    private IList<IValue> out;
+    private final IStack<IStmt> exeStack;
+    private final IDictionary<String, IValue> symTable;
+    private final IList<IValue> out;
+    private final IDictionary<StringValue, BufferedReader> fileTable;
+    private final IHeap heap;
     private final IStmt originalProgram;
-    private IDictionary<StringValue, BufferedReader> fileTable;
+
 
     public PrgState(IStack<IStmt> exeStack,
                     IDictionary<String, IValue> symTable,
                     IList<IValue> out,
                     IDictionary<StringValue, BufferedReader> fileTable,
+                    IHeap heap,
                     IStmt program) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = fileTable;
+        this.heap = heap;
         this.originalProgram = program;
         this.exeStack.push(program);
     }
@@ -33,27 +39,17 @@ public class PrgState {
         return exeStack;
     }
 
-    public void setExeStack(IStack<IStmt> exeStack) {
-        this.exeStack = exeStack;
-    }
-
     public IDictionary<String, IValue> getSymTable() {
         return symTable;
-    }
-
-    public void setSymTable(IDictionary<String, IValue> symTable) {
-        this.symTable = symTable;
     }
 
     public IList<IValue> getOut() {
         return out;
     }
 
-    public void setOut(IList<IValue> out) {
-        this.out = out;
-    }
-
     public IDictionary<StringValue, BufferedReader> getFileTable() { return fileTable; }
+
+    public IHeap getHeap() { return heap; }
 
     public IStmt getOriginalProgram() {
         return originalProgram;
@@ -64,6 +60,7 @@ public class PrgState {
                 new MyDictionary<>(),
                 new MyList<>(),
                 new MyDictionary<>(),
+                new MyHeap(),
                 program);
     }
 
@@ -82,6 +79,10 @@ public class PrgState {
 
         sb.append("FileTable:\n");
         fileTable.toMap().keySet().forEach(f -> sb.append(f.val()).append('\n'));
+
+        sb.append("Heap:\n");
+        new TreeMap<>(heap.getContent()).forEach((k, v) ->
+                sb.append(k).append(" --> ").append(v).append('\n'));
 
         return sb.toString();
     }
