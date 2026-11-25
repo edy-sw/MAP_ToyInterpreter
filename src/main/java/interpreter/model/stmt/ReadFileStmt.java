@@ -16,6 +16,8 @@ public record ReadFileStmt(IExp exp, String varName) implements IStmt {
     public PrgState execute(PrgState state) throws MyException {
         // S9: varName must be declared and of IntType
         var symTable = state.getSymTable();
+        var heap = state.getHeap();
+
         if (!symTable.isDefined(varName)) {
             throw new StatementException("readFile: variable '" + varName + "' is not declared");
         }
@@ -24,7 +26,7 @@ public record ReadFileStmt(IExp exp, String varName) implements IStmt {
         }
 
         // Evaluate exp -> must be a StringValue
-        if (!(exp.eval(symTable) instanceof StringValue fileName)) {
+        if (!(exp.eval(symTable, heap) instanceof StringValue fileName)) {
             throw new StatementException("readFile: expression " + exp + " is not a string");
         }
 
