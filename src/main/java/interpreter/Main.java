@@ -28,6 +28,21 @@ public class Main {
         var c5 = new Controller(new Repository(PrgState.of(Examples.EX5), "log5.txt"), false);
         menu.addCommand(new RunExampleCommand("5", Examples.EX5.toString(), c5));
 
+        var c6 = new Controller(new Repository(PrgState.of(Examples.EX6), "log6.txt"), false);
+        menu.addCommand(new RunExampleCommand("6", Examples.EX6.toString(), c6));
+
+        var c7 = new Controller(new Repository(PrgState.of(Examples.EX7), "log7.txt"), false);
+        menu.addCommand(new RunExampleCommand("7", Examples.EX7.toString(), c7));
+
+        var c8 = new Controller(new Repository(PrgState.of(Examples.EX8), "log8.txt"), false);
+        menu.addCommand(new RunExampleCommand("8", Examples.EX8.toString(), c8));
+
+        var c9 = new Controller(new Repository(PrgState.of(Examples.EX9), "log9.txt"), false);
+        menu.addCommand(new RunExampleCommand("9", Examples.EX9.toString(), c9));
+
+        var c10 = new Controller(new Repository(PrgState.of(Examples.EX10), "log10.txt"), false);
+        menu.addCommand(new RunExampleCommand("10", Examples.EX10.toString(), c10));
+
         menu.show();
     }
 }
